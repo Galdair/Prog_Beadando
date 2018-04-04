@@ -1,0 +1,132 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\title{Programozás Beadandó}
+\author{Tompa Gábor }
+\date{27 Március 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{Feladat}
+Valósítsa meg az egész számokat tartalmazó zsák típust! Ábrázolja a zsák elemeit (az
+előfordulás számukkal együtt) egy sorozatban! Implementálja a szokásos
+műveleteket (elem betevése, kivétele, üres-e a halmaz, egy elem hányszor van a
+zsákban), valamint két zsák szimmetrikus differenciáját (a közös elemek nem
+kerülnek be a szimmetrikus differenciába), továbbá egy zsák kiírását!
+\section{Zsak tipus}
+A zsák típus (Vagy más neven multiset) a klasszikus halmaz kibővitese azzal az engedménnyel hogy egy elemet többször is tartalmazhat(aminek számosságát taroljuk).A megvalósításnak része meg a halmaz hossza is.
+\section{Típus műveletek}
+\subsection{Üres}
+Egy metódus ami ellenőrzi hogy a megadott zsák üres e
+\subsection{Szimmetrikus Differencia}
+
+Eg metódus ami egy másik Zsák típust értekül kapva visszaadja a két Zsák szimmetrikus differenciáját(mindegyik elemet csak egyszer rak bele a differenciába)
+\subsection{Betevés}
+Egy metódus ami beletesz egy új elemet a Zsákba
+\subsection{Kivetel}
+Egy elemet kivesz a zsákból,de teljesen(ha többször van benne akkor mindegyiket kiveszi)
+\subsection{Elem sokasága}
+egy metódus ami ellenőrzi hogy az adott elem hányszor található meg a zsákban
+
+\section{Reprezentáció}
+A Zsákot egy kettő egész számokból álló struktúrából (ami az elemet és a számosságát tartalmazza)alkotott egy dimenziós vektor alkotja valamint a hossz változó ami szinten egy természetes szám,a könnyebb debugolhatosagert,es a nagy zsákok lehetőségéért.
+
+\section{Implementáció}
+\subsection{Szimmetrikus Differencia}
+A szimmetrikus differencia O(n^2) alatti megvalósítása
+\begin{algorithmic}[1]
+        \Procedure{Szim\_Dif}{$other\_bag$}
+            \State $temp\_container$
+            \State $benne_van$
+                \For{i in $this.tarolo\_meret$}
+                \For{j in $other\_bag.tarolo\_meret$}
+                    \If{$this.tarolo\_tomb[i].element$ = $other\_bag.tarolo\_tomb[j].element$}
+                    \State true \leftarrow $benne\_van$
+                    \EndIf
+                    \EndFor
+                    \If{$benne\_van$ = false}
+                 \State    $this.tarolo\_tomb[i].element$ \leftarrow $PutIn(temp\_container$)
+                    \EndIf
+                \EndFor
+        \EndProcedure
+        \end{algorithmic}
+        \subsection{Elem sokasaga}
+        Egy elem sokaságának O(n) alatti megvalositasa
+        \begin{algorithmic}[2]
+        \Procedure{ElementCardinality}{$element$}
+            \State 0 \leftarrow $cardinality$
+                \For{$j$  $other\_bag.tarolo\_meret$}
+                    \If{$this.tarolo\_tomb[i].element$ = $element$}
+                    \State $cardinality$ \leftarrow $this.tarolo\_tomb[i].cardinality$
+                    \EndIf
+                \EndFor
+        \EndProcedure
+        \end{algorithmic}
+\subsection{Betevés}
+Beletesz egy elemet a zsákba,ugy hogy lefoglal egy eggyel nagyobb átmeneti tömböt,amibe áttölti az adatokat,és utána törli a régit,felvesz egy eggyel nagyobb tarolót,amibe az átmeneti tömbből áttölti az elemeket
+\subsection{Kivetél}
+Hasonló a betevés művelethez,csak kiveszi az elemet és az elem nélkül maradékot tölti fel
+\subsection{Üres}
+Igazat ad vissza ha a hossz adattag 0 hamisat ha nem(mivel csak a betevés metóduson keresztül veszünk fel elemeket ahol gondoskodunk a méret adattag növeléséről,igy mindig helyes érteket fog visszaadni)
+\section{Osztaly}
+A Zsák osztályt egy Bag osztály valósítja meg ami tartalmaz egy kételemű struktúrából álló dinamikus tömböt és egy hossz érteket,valamint definiálja a szimmetrikus differencia függvényt,a PutIn (betevésre szolgáló),deleteElement(kivételre szolgáló),Üres() függvényt,Egy kiíró WriteOut() metódust ,egy ElementCardinality() metódust ami visszaadja egy elem számosságát,egy segédfüggvényt ami visszaadja a taroló tömböt,valamint újradefiniálja az értékadó operatort,és tartalmaz másoló konstruktort az üres és az elemeket magadon kívül.
+
+        \begin{tabular}{|r|l|}
+            \hline
+              \multicolumn{2}{c}{Bag} \\
+            \hline
+            - & tarolo\_meret : unsigned long long int\\
+            - & tarolo\_tomb : element\_and\_cardinality[0\dots d]\\
+            \hline
+            + & Bag(int[],int length) \\
+            + & Bag() \\
+            + & Bag(Bag) \\
+            + & Szim\_dif(Bag) : Bag\\
+            + & PutIn(int) : Bag\\
+            + & DeleteElement(int)\\
+            + & WriteOut()\\
+            + & ElementCardinality(int) : int\\
+            + & operator =(Bag) : Bag\\
+            \hline
+        \end{tabular}
+   
+        A seged struktura:
+       
+       
+       
+                \begin{tabular}{|r|l|}
+            \hline
+              \multicolumn{2}{c}{element\_and\_cardinality} \\
+            \hline
+            - & element : int\\
+            - & cardinality : int\\
+            \hline
+        \end{tabular}
+\section{Tesztelési terv}
+\begin{enumerate}
+    \item Uj Zsákok létrehozása
+    \begin{enumerate}
+        \item Egy elemű zsák létrehozása
+        \item Két elemű Zsák létrehozása
+        \item Üres zsák létrehozása
+    \end{enumerate}
+    \item Üres Zsákba új elem
+    \item 0 berakása a nullát mar tartalmazó zsákba
+    \item több elemű zsák egyeretelmu maxelemmel,Elemszám ellenőrzéssel
+    \item Sok betevési művelet
+    \item Sok torlesi művelet
+    \item Egymás után sokszor kivétel ugyanazzal az elemmel
+    \item Egyenlő szimdif(szimdif funkcionálási tesztelése)
+    \item Elem torlese meglevő elemekből
+    \item Másoló konstruktor
+    \item értékadás
+    \item értékadás egyenlően
+\end{enumerate}
+\end{document}
+
