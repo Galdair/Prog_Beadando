@@ -1,0 +1,3 @@
+/home/gabor/Development/programozas_beadando_1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/gabor/Development/programozas_beadando_1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/gabor/Development/programozas_beadando_1/cmake-build-debug/CMakeFiles/programozas_beadando_1.dir

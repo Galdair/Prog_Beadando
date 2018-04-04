@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/programozas_beadando_1.dir/main.cpp.o CMakeFiles/programozas_beadando_1.dir/bag.cpp.o  -o programozas_beadando_1 
